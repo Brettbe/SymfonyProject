@@ -1,0 +1,28 @@
+framework:
+  workflows:
+    offer_status:
+      type: "state_machine"
+      supports:
+        - App\Entity\Offer
+      marking_store:
+        type: "method"
+        property: "status"
+      places:
+        - envoyée
+        - en_cours
+        - entretien
+        - acceptée
+        - refusée
+      transitions:
+        traiter:
+          from: envoyée
+          to: en_cours
+        planifier_entretien:
+          from: en_cours
+          to: entretien
+        accepter:
+          from: entretien
+          to: acceptée
+        refuser:
+          from: [en_cours, entretien]
+          to: refusée

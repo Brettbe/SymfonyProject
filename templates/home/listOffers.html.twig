@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="container">
+    <a class="btn btn-secondary mt-2" href="{{path('app_home')}}">Home</a>
+    <h1>Lists the offers</h1>
+    <a class="btn btn-primary mb-3" href="{{path('app_add_offer')}}">Add an offer</a>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Date</th>
+          <th scope="col">Description</th>
+          <th scope="col">Recruiter</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for offer in offers %}
+          <tr>
+            <td>{{ offer.name }}</td>
+            <td>{{offer.date|date('Y-m-d h:m')}}</td>
+            <td>{{offer.content}}</td>
+            <td>{{offer.recruiter.email}}</td>
+            <td><a class="btn btn-secondary" href="{{path('app_edit_offer', {'id': offer.id})}}">Edit</a></td>
+            <td><a class="btn btn-danger" href="{{path('app_delete_offer', {'id': offer.id})}}">Delete</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
